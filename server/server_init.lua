@@ -88,20 +88,20 @@ function CheckOperationCooldown(source, operation, cooldownSeconds)
     end
 
     if not source or not operation then
-        return false
+        return false, 0
     end
 
     -- Get character identifier for proper cooldown tracking
     local user = Core.getUser(source)
     if not user then
         DBG:Warning(string.format('Could not get user for cooldown check: source=%s', tostring(source)))
-        return false
+        return false, 0
     end
 
     local character = user.getUsedCharacter
     if not character then
         DBG:Warning('Could not get character for cooldown check')
-        return false
+        return false, 0
     end
 
     local playerKey = tostring(character.charIdentifier)
