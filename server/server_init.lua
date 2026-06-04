@@ -15,6 +15,8 @@ DevModeActive = Config.devMode.active or false
 TrainEntity = nil
 BridgeDestroyed = false
 
+DBG:Info('bcc-train server_init loaded')
+
 -- Track spawned trains by region for spawn limits
 SpawnedTrainsByRegion = {
     east = 0, -- outWest = false
@@ -126,6 +128,9 @@ function CheckOperationCooldown(source, operation, cooldownSeconds)
     OperationCooldowns[playerKey][operation] = currentTime + cooldownSeconds
     return true, 0
 end
+
+local isDefined = CheckOperationCooldown ~= nil
+DBG:Info('CheckOperationCooldown defined: ' .. tostring(isDefined))
 
 -- Periodic cleanup of expired cooldowns (runs every 5 minutes)
 local function cleanupExpiredCooldowns()
